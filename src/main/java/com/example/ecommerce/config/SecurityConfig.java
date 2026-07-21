@@ -49,6 +49,7 @@ public class SecurityConfig {
 						.requestMatchers(HttpMethod.PUT, "/api/warehouses/**").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.GET, "/api/inventory/**").hasAnyRole("ADMIN", "WAREHOUSE_STAFF")
 						.requestMatchers(HttpMethod.PUT, "/api/inventory/**").hasRole("ADMIN")
+						.requestMatchers("/api/cart/**").hasRole("CUSTOMER")
 						.anyRequest().authenticated()
 				)
 				.authenticationProvider(authenticationProvider())

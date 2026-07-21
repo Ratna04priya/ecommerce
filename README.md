@@ -34,9 +34,9 @@ Features (built incrementally across commits):
 
 ## Project Status
 
-**Commit 6 — Warehouse and inventory APIs** (current)
+**Commit 7 — Shopping cart APIs** (current)
 
-Multi-warehouse inventory upsert/list is available. Shopping cart APIs come next.
+Customers can add/remove items and view their cart. Checkout comes next.
 
 ---
 
@@ -148,6 +148,14 @@ Postman: **Authentication** + **Products** folders.
 | PUT | `/api/warehouses/{id}` | ADMIN | Update warehouse |
 | GET | `/api/inventory` | ADMIN, WAREHOUSE_STAFF | List stock (`productId`, `warehouseId`) |
 | PUT | `/api/inventory` | ADMIN | Upsert stock for product+warehouse |
+
+### Cart (Commit 7)
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/api/cart` | CUSTOMER | View cart |
+| POST | `/api/cart/add` | CUSTOMER | Add/update item quantity |
+| DELETE | `/api/cart/remove/{itemId}` | CUSTOMER | Remove cart item |
 
 ---
 
