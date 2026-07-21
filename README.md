@@ -34,10 +34,10 @@ Features (built incrementally across commits):
 
 ## Project Status
 
-**Commit 11 — Validation and exception handling** (current)
+**Commit 12 — Tests and submission docs** (current / complete)
 
-Consistent JSON error responses for validation, auth, conflicts, and concurrency.
-Unit/integration tests and AGENTS/SKILLS docs come next.
+Unit + integration tests cover auth, product security, checkout, fulfillment,
+and returns. Repository includes `AGENTS.md`, `SKILLS.md`, and a Postman collection.
 
 ---
 
@@ -107,7 +107,29 @@ App URL: http://localhost:8080
 ./mvnw test
 ```
 
----
+### Test coverage (Commit 12)
+
+| Type | Class | Focus |
+|------|-------|-------|
+| Unit | `ProductServiceTest` | create / duplicate SKU / soft delete |
+| Unit | `AuthServiceTest` | register success / duplicate email |
+| Unit | `CheckoutServiceTest` | reserve stock / insufficient stock / empty cart |
+| Integration | `AuthIntegrationTest` | login / register / validation |
+| Integration | `ProductSecurityIntegrationTest` | public GET / 401 / 403 |
+| Integration | `CheckoutFlowIntegrationTest` | product → stock → cart → checkout → ship → return |
+
+## Postman
+
+Import `postman/Ecommerce-Order-Management.postman_collection.json`.
+
+After login, copy JWT into collection variables:
+`adminToken`, `customerToken`, `warehouseToken`.
+
+## Submission docs
+
+- `README.md` — overview, assumptions, run instructions
+- `AGENTS.md` — AI assistance and human decisions
+- `SKILLS.md` — skills used during development
 
 ## API Documentation
 
