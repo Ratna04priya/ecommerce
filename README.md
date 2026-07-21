@@ -34,9 +34,10 @@ Features (built incrementally across commits):
 
 ## Project Status
 
-**Commit 7 — Shopping cart APIs** (current)
+**Commit 8 — Checkout workflow** (current)
 
-Customers can add/remove items and view their cart. Checkout comes next.
+Checkout reserves inventory across warehouses, creates order + simulated payment,
+clears the cart, and fires async notification/audit events. Order APIs come next.
 
 ---
 
@@ -69,10 +70,12 @@ Tables (added in later commits):
 ## Assumptions
 
 - Payment is simulated (no real payment gateway).
-- Inventory is reserved atomically during checkout.
+- Inventory is reserved atomically during checkout (pessimistic locks + multi-warehouse allocation).
+- Tax is a flat 10% on (subtotal − discount).
 - Orders cannot be cancelled after shipping.
 - Refunds are simulated.
 - H2 is the default for easy local/Postman testing; MySQL profile is available for assignment parity.
+- Downstream notification/audit/fulfillment routing runs asynchronously after checkout.
 
 ---
 
@@ -156,6 +159,14 @@ Postman: **Authentication** + **Products** folders.
 | GET | `/api/cart` | CUSTOMER | View cart |
 | POST | `/api/cart/add` | CUSTOMER | Add/update item quantity |
 | DELETE | `/api/cart/remove/{itemId}` | CUSTOMER | Remove cart item |
+
+### Checkout (Commit 8)
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/api/checkout` | CUSTOMER | Reserve stock, pay, create order, clear cart |
+
+Tax = 10% after discount. Payment simulated as SUCCESS. Demo code: `SAVE10`.
 
 ---
 

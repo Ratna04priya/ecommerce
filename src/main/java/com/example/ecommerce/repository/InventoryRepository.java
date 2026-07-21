@@ -36,6 +36,15 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 	@Query("select i from Inventory i where i.product.id = :productId and i.warehouse.id = :warehouseId")
 	Optional<Inventory> findForUpdate(@Param("productId") Long productId, @Param("warehouseId") Long warehouseId);
 
+	@Lock(LockModeType.PESSIMISTIC_WRITE)
+	@Query("""
+			select i from Inventory i
+			where i.product.id = :productId
+			  and i.quantityAvailable > 0
+			order by i.quantityAvailable desc
+			""")
+	List<Inventory> findAvailableByProductIdForUpdate(@Param("productId") Long productId);
+
 	@Query("""
 			select coalesce(sum(i.quantityAvailable), 0)
 			from Inventory i

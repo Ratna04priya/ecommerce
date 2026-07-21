@@ -1,5 +1,6 @@
 package com.example.ecommerce.config;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 import org.springframework.boot.CommandLineRunner;
@@ -7,9 +8,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.example.ecommerce.entity.Discount;
 import com.example.ecommerce.entity.Role;
 import com.example.ecommerce.entity.RoleName;
 import com.example.ecommerce.entity.User;
+import com.example.ecommerce.repository.DiscountRepository;
 import com.example.ecommerce.repository.RoleRepository;
 import com.example.ecommerce.repository.UserRepository;
 
@@ -20,6 +23,7 @@ public class DataSeeder {
 	CommandLineRunner seedRolesAndUsers(
 			RoleRepository roleRepository,
 			UserRepository userRepository,
+			DiscountRepository discountRepository,
 			PasswordEncoder passwordEncoder) {
 		return args -> {
 			for (RoleName roleName : RoleName.values()) {
@@ -34,6 +38,14 @@ public class DataSeeder {
 					"customer@shop.com", "Demo Customer", "customer123", RoleName.CUSTOMER);
 			seedUserIfMissing(userRepository, roleRepository, passwordEncoder,
 					"warehouse@shop.com", "Warehouse Staff", "warehouse123", RoleName.WAREHOUSE_STAFF);
+
+			if (discountRepository.findByCodeIgnoreCase("SAVE10").isEmpty()) {
+				discountRepository.save(Discount.builder()
+						.code("SAVE10")
+						.percentOff(new BigDecimal("10.00"))
+						.active(true)
+						.build());
+			}
 		};
 	}
 
