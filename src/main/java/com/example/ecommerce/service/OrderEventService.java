@@ -35,4 +35,15 @@ public class OrderEventService {
 				.referenceId(orderNumber)
 				.build());
 	}
+
+	@Async
+	public void onOrderStatusChanged(String orderNumber, String fromStatus, String toStatus) {
+		String message = "Order " + orderNumber + " status changed from " + fromStatus + " to " + toStatus;
+		log.info("[NOTIFICATION] Order {} is now {}", orderNumber, toStatus);
+		auditLogRepository.save(AuditLog.builder()
+				.eventType("ORDER_STATUS_CHANGED")
+				.message(message)
+				.referenceId(orderNumber)
+				.build());
+	}
 }

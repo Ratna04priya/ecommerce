@@ -21,6 +21,25 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 			left join fetch i.product
 			left join fetch i.warehouse
 			left join fetch o.payment
+			where o.customer.id = :customerId
+			""")
+	List<Order> findByCustomerIdWithDetails(@Param("customerId") Long customerId);
+
+	@Query("""
+			select distinct o from Order o
+			left join fetch o.items i
+			left join fetch i.product
+			left join fetch i.warehouse
+			left join fetch o.payment
+			""")
+	List<Order> findAllWithDetails();
+
+	@Query("""
+			select distinct o from Order o
+			left join fetch o.items i
+			left join fetch i.product
+			left join fetch i.warehouse
+			left join fetch o.payment
 			where o.id = :id
 			""")
 	Optional<Order> findByIdWithDetails(@Param("id") Long id);

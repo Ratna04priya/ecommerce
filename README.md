@@ -34,10 +34,10 @@ Features (built incrementally across commits):
 
 ## Project Status
 
-**Commit 8 — Checkout workflow** (current)
+**Commit 9 — Order lifecycle APIs** (current)
 
-Checkout reserves inventory across warehouses, creates order + simulated payment,
-clears the cart, and fires async notification/audit events. Order APIs come next.
+Customers track their orders; warehouse staff/admin advance fulfillment status.
+Returns and refunds come next.
 
 ---
 
@@ -167,6 +167,17 @@ Postman: **Authentication** + **Products** folders.
 | POST | `/api/checkout` | CUSTOMER | Reserve stock, pay, create order, clear cart |
 
 Tax = 10% after discount. Payment simulated as SUCCESS. Demo code: `SAVE10`.
+
+### Orders (Commit 9)
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/api/orders` | ADMIN / WAREHOUSE_STAFF / CUSTOMER | List orders (customer sees own) |
+| GET | `/api/orders/{id}` | ADMIN / WAREHOUSE_STAFF / CUSTOMER | Get order details |
+| PUT | `/api/orders/{id}/status` | roles vary | Advance/cancel status |
+
+Lifecycle: `CONFIRMED → PACKED → SHIPPED → DELIVERED` (warehouse).  
+Cancel allowed only before shipping. Shipping consumes reserved inventory.
 
 ---
 
