@@ -34,10 +34,10 @@ Features (built incrementally across commits):
 
 ## Project Status
 
-**Commit 2 — Core entity models** (current)
+**Commit 3 — JPA repositories** (current)
 
-JPA entities and table mappings are in place for users/roles, products,
-warehouses, and multi-warehouse inventory. Repositories and APIs come next.
+Spring Data repositories are ready for User, Role, Product, Warehouse, and
+Inventory (including lookup helpers and locked inventory reads for checkout).
 
 ---
 
