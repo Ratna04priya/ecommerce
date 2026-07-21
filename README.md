@@ -34,10 +34,10 @@ Features (built incrementally across commits):
 
 ## Project Status
 
-**Commit 10 — Returns, refunds, and discounts** (current)
+**Commit 11 — Validation and exception handling** (current)
 
-Customers can return delivered orders (restock + simulated refund). Admins can
-manage discount codes. Validation polish and tests come next.
+Consistent JSON error responses for validation, auth, conflicts, and concurrency.
+Unit/integration tests and AGENTS/SKILLS docs come next.
 
 ---
 
@@ -188,6 +188,24 @@ Returns use `POST /api/returns` (not status update).
 | GET | `/api/returns/order/{orderId}` | CUSTOMER / ADMIN / WAREHOUSE_STAFF | Get return |
 | GET | `/api/discounts` | ADMIN | List discount codes |
 | POST | `/api/discounts` | ADMIN | Create discount code |
+
+### Error responses (Commit 11)
+
+All API errors return JSON shaped like:
+
+```json
+{
+  "timestamp": "2026-07-21T18:00:00Z",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Validation failed",
+  "path": "/api/products",
+  "details": { "price": "Price must be greater than 0" }
+}
+```
+
+Covered cases: bean validation, malformed JSON, auth/forbidden, not found,
+optimistic lock conflicts, and DB constraint violations.
 
 ---
 

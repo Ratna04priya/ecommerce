@@ -17,6 +17,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.example.ecommerce.security.CustomUserDetailsService;
+import com.example.ecommerce.security.JsonAccessDeniedHandler;
+import com.example.ecommerce.security.JsonAuthenticationEntryPoint;
 import com.example.ecommerce.security.JwtAuthenticationFilter;
 
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,8 @@ public class SecurityConfig {
 
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	private final CustomUserDetailsService userDetailsService;
+	private final JsonAuthenticationEntryPoint authenticationEntryPoint;
+	private final JsonAccessDeniedHandler accessDeniedHandler;
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -36,6 +40,10 @@ public class SecurityConfig {
 				.csrf(AbstractHttpConfigurer::disable)
 				.headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.exceptionHandling(ex -> ex
+						.authenticationEntryPoint(authenticationEntryPoint)
+						.accessDeniedHandler(accessDeniedHandler)
+				)
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/api/auth/**").permitAll()
 						.requestMatchers("/api/health").permitAll()
