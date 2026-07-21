@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
@@ -33,6 +34,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler({BadCredentialsException.class, AuthenticationException.class})
 	public ResponseEntity<Map<String, Object>> handleAuth(AuthenticationException ex) {
 		return build(HttpStatus.UNAUTHORIZED, "Invalid email or password", null);
+	}
+
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<Map<String, Object>> handleAccessDenied(AccessDeniedException ex) {
+		return build(HttpStatus.FORBIDDEN, "Access denied", null);
 	}
 
 	@ExceptionHandler(Exception.class)

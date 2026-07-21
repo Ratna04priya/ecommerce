@@ -34,10 +34,10 @@ Features (built incrementally across commits):
 
 ## Project Status
 
-**Commit 4 — JWT authentication** (current)
+**Commit 5 — Product management APIs** (current)
 
-Register/login APIs, JWT filter, role-based security, and seeded demo users
-are available. Product CRUD comes next.
+Product catalog CRUD is available. Browse is public; create/update/delete
+require ADMIN. Warehouse and inventory APIs come next.
 
 ---
 
@@ -127,7 +127,17 @@ Use header: `Authorization: Bearer <token>`
 | customer@shop.com | customer123 | CUSTOMER |
 | warehouse@shop.com | warehouse123 | WAREHOUSE_STAFF |
 
-Postman: create an **Authentication** folder with Register + Login requests.
+### Products (Commit 5)
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/api/products` | Public | List products (`category`, `activeOnly`) |
+| GET | `/api/products/{id}` | Public | Get product by id |
+| POST | `/api/products` | ADMIN | Create product |
+| PUT | `/api/products/{id}` | ADMIN | Update product |
+| DELETE | `/api/products/{id}` | ADMIN | Soft-delete (sets `active=false`) |
+
+Postman: **Authentication** + **Products** folders.
 
 ---
 
