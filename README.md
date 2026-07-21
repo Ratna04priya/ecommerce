@@ -34,10 +34,10 @@ Features (built incrementally across commits):
 
 ## Project Status
 
-**Commit 1 — Project setup** (current)
+**Commit 2 — Core entity models** (current)
 
-Foundation only: dependencies, package structure, database configuration.
-Business APIs will be added in later commits.
+JPA entities and table mappings are in place for users/roles, products,
+warehouses, and multi-warehouse inventory. Repositories and APIs come next.
 
 ---
 
