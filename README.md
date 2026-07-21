@@ -34,10 +34,9 @@ Features (built incrementally across commits):
 
 ## Project Status
 
-**Commit 5 — Product management APIs** (current)
+**Commit 6 — Warehouse and inventory APIs** (current)
 
-Product catalog CRUD is available. Browse is public; create/update/delete
-require ADMIN. Warehouse and inventory APIs come next.
+Multi-warehouse inventory upsert/list is available. Shopping cart APIs come next.
 
 ---
 
@@ -138,6 +137,17 @@ Use header: `Authorization: Bearer <token>`
 | DELETE | `/api/products/{id}` | ADMIN | Soft-delete (sets `active=false`) |
 
 Postman: **Authentication** + **Products** folders.
+
+### Warehouses & Inventory (Commit 6)
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/api/warehouses` | ADMIN | Create warehouse |
+| GET | `/api/warehouses` | ADMIN, WAREHOUSE_STAFF | List warehouses |
+| GET | `/api/warehouses/{id}` | ADMIN, WAREHOUSE_STAFF | Get warehouse |
+| PUT | `/api/warehouses/{id}` | ADMIN | Update warehouse |
+| GET | `/api/inventory` | ADMIN, WAREHOUSE_STAFF | List stock (`productId`, `warehouseId`) |
+| PUT | `/api/inventory` | ADMIN | Upsert stock for product+warehouse |
 
 ---
 
