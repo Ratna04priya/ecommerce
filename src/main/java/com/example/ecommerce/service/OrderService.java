@@ -31,7 +31,7 @@ public class OrderService {
 			OrderStatus.CONFIRMED, EnumSet.of(OrderStatus.PACKED, OrderStatus.CANCELLED),
 			OrderStatus.PACKED, EnumSet.of(OrderStatus.SHIPPED, OrderStatus.CANCELLED),
 			OrderStatus.SHIPPED, EnumSet.of(OrderStatus.DELIVERED),
-			OrderStatus.DELIVERED, EnumSet.of(OrderStatus.RETURNED),
+			OrderStatus.DELIVERED, EnumSet.noneOf(OrderStatus.class),
 			OrderStatus.RETURNED, EnumSet.noneOf(OrderStatus.class),
 			OrderStatus.CANCELLED, EnumSet.noneOf(OrderStatus.class)
 	);

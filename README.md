@@ -34,10 +34,10 @@ Features (built incrementally across commits):
 
 ## Project Status
 
-**Commit 9 — Order lifecycle APIs** (current)
+**Commit 10 — Returns, refunds, and discounts** (current)
 
-Customers track their orders; warehouse staff/admin advance fulfillment status.
-Returns and refunds come next.
+Customers can return delivered orders (restock + simulated refund). Admins can
+manage discount codes. Validation polish and tests come next.
 
 ---
 
@@ -177,7 +177,17 @@ Tax = 10% after discount. Payment simulated as SUCCESS. Demo code: `SAVE10`.
 | PUT | `/api/orders/{id}/status` | roles vary | Advance/cancel status |
 
 Lifecycle: `CONFIRMED → PACKED → SHIPPED → DELIVERED` (warehouse).  
-Cancel allowed only before shipping. Shipping consumes reserved inventory.
+Cancel allowed only before shipping. Shipping consumes reserved inventory.  
+Returns use `POST /api/returns` (not status update).
+
+### Returns & Discounts (Commit 10)
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/api/returns` | CUSTOMER | Return delivered order + refund |
+| GET | `/api/returns/order/{orderId}` | CUSTOMER / ADMIN / WAREHOUSE_STAFF | Get return |
+| GET | `/api/discounts` | ADMIN | List discount codes |
+| POST | `/api/discounts` | ADMIN | Create discount code |
 
 ---
 

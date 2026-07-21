@@ -46,4 +46,17 @@ public class OrderEventService {
 				.referenceId(orderNumber)
 				.build());
 	}
+
+	@Async
+	public void onOrderReturned(String orderNumber, String refundReference, String refundAmount) {
+		String message = "Order " + orderNumber + " returned. Refund " + refundReference
+				+ " amount " + refundAmount;
+		log.info("[NOTIFICATION] Refund {} issued for order {} amount {}",
+				refundReference, orderNumber, refundAmount);
+		auditLogRepository.save(AuditLog.builder()
+				.eventType("ORDER_RETURNED")
+				.message(message)
+				.referenceId(orderNumber)
+				.build());
+	}
 }
