@@ -34,10 +34,10 @@ Features (built incrementally across commits):
 
 ## Project Status
 
-**Commit 3 — JPA repositories** (current)
+**Commit 4 — JWT authentication** (current)
 
-Spring Data repositories are ready for User, Role, Product, Warehouse, and
-Inventory (including lookup helpers and locked inventory reads for checkout).
+Register/login APIs, JWT filter, role-based security, and seeded demo users
+are available. Product CRUD comes next.
 
 ---
 
@@ -109,8 +109,25 @@ App URL: http://localhost:8080
 
 ## API Documentation
 
-Postman collection will be added as APIs are implemented.
-Public health check (Commit 1): `GET /api/health`
+### Auth (Commit 4)
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/api/auth/register` | Public | Register user (optional `role`) |
+| POST | `/api/auth/login` | Public | Login and receive JWT |
+| GET | `/api/health` | Public | Health check |
+
+Use header: `Authorization: Bearer <token>`
+
+### Seeded demo users
+
+| Email | Password | Role |
+|-------|----------|------|
+| admin@shop.com | admin123 | ADMIN |
+| customer@shop.com | customer123 | CUSTOMER |
+| warehouse@shop.com | warehouse123 | WAREHOUSE_STAFF |
+
+Postman: create an **Authentication** folder with Register + Login requests.
 
 ---
 
