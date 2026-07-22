@@ -39,6 +39,16 @@ Features (built incrementally across commits):
 Unit + integration tests cover auth, product security, checkout, fulfillment,
 and returns. Repository includes `AGENTS.md`, `SKILLS.md`, and a Postman collection.
 
+
+## Running Screenshots
+
+<img width="810" height="480" alt="Screenshot 2026-07-22 at 12 51 39 PM" src="https://github.com/user-attachments/assets/44c20b89-ec9c-4ae2-9552-9f2256779137" />
+
+## Test cases Screenshots
+
+<img width="780" height="271" alt="Screenshot 2026-07-22 at 12 51 16 PM" src="https://github.com/user-attachments/assets/9fbbe9ee-739c-43f8-a9cd-eb3631f7c5cb" />
+
+
 ---
 
 ## Roles
